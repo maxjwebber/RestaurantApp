@@ -23,6 +23,14 @@ public class MenuItem {
         return Objects.hash(name, description);
     }
 
+    @Override
+    public String toString() {
+        if (this.isNew())
+            return "*NEW* "+name +" ($"+price+"): "+description;
+        else
+            return name +" ($"+price+"): "+description;
+    }
+
     public MenuItem(String name, float price, String description, String category)
     {
         this.name = name;
@@ -54,8 +62,9 @@ public class MenuItem {
     {
         //compare today's date to dateAdded.
         //if dateAdded is less than two weeks ago, return true
-        //else false
-        return true;
+        long twoWeeksMs = 1209600000;
+        Date today = new Date();
+        return (today.getTime()-this.dateAdded.getTime() < twoWeeksMs);
     }
 
     public float getPrice() {
